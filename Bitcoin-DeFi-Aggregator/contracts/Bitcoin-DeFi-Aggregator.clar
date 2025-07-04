@@ -89,3 +89,22 @@
     unique-users: uint
   }
 )
+
+;; Route cache to optimize gas usage
+(define-map route-cache
+  { from-token: uint, to-token: uint, amount: uint }
+  {
+    best-route: (list 10 uint),  ;; List of protocol IDs to route through
+    expected-output: uint,
+    calculated-at-block: uint
+  }
+)
+
+;; Protocol fee settings
+(define-data-var protocol-fee-bps uint u10)  ;; 0.1% default fee
+(define-data-var fee-recipient principal contract-owner)
+
+;; Protocol counters
+(define-data-var next-protocol-id uint u1)
+(define-data-var next-token-id uint u1)
+(define-data-var next-strategy-id uint u1)
